@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  product-service:
+    build: .
+    container_name: server
+    volumes:
+      - .:/line-bot
+    ports: 
+      - '5000:5000'
+    tty: true
+    stdin_open: true
+    command: python line_bot_lottery.py
+  ngrok:
+    image: wernight/ngrok
+    container_name: chatbot_ngrok 
+    ports: 
+      - '4040'
+    depends_on:
+      - product-service
+    tty: true
+    stdin_open: true
+    command: ngrok http server:12345 -region ap
