@@ -55,5 +55,3 @@ def handle(event):
 # run app
 if __name__ == "__main__":
     app.run(host='0.0.0.0',debug=True, port=12345)
-
-# curl $(docker port chatbot_ngrok 4040)/api/tunnels
