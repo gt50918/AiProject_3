@@ -136,28 +136,23 @@ def getmoney(soup,x):
         award['沒得獎']='哭哭'
     return award
 
-def main(scan):
-    subscription_key = 'e9517eef1d664b709b7610da6c009a4d'
-    endpoint = 'https://tfb103vis.cognitiveservices.azure.com/'
+def main(scan,subscription_key,endpoint):
     # scan= scand
     str1=scanlottery(subscription_key,endpoint,img=scan)
     lotteryNo=re.findall('#\d{9}',str1)[0][1:]   #大樂透第N期
     mylist = re_tolist(str1)    # Regular Expression取玩家大樂透號碼
     soup= getsoup(lotteryNo)       # 取大樂透網站的soup
     win_number=winning_numbers(soup)  # 大樂透中獎號碼
-    temp = list()
+    result=''
     # 玩家大樂透逐筆比對
     for mylottery in mylist:    
         x=match(mylottery,win_number)
         award=getmoney(soup,x)
         mylottery_str = ' '.join(mylottery)
-        result = '號碼為:'+mylottery_str
-        # print(result)
+        result += '號碼為:'+mylottery_str +'\n'
+
         award_keys = list(award.keys())[0]
         award_values = list(award.values())[0]
-        result2 = '結果為:'+award_keys+'~'+award_values
-        # print(result2) #dict轉成list取出需要的key value
-        r = result+'\n'+result2
-        temp.append(r)
-        temp_str = '\n'.join(temp)
-    return temp_str
+        result += '結果為:'+award_keys+'~'+award_values + '\n'
+    
+    return result[:-1]
