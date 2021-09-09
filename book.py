@@ -10,6 +10,7 @@ images = []     #書本圖片
 isbns = []      #ISBN
 authors = []    #作家
 publishs = []   #出版社
+introduces = []  #作者簡介
 user_Agent = ua.random
 # print(user_Agent)
 headers = {
@@ -17,8 +18,7 @@ headers = {
 }
 def book(keyword,pages):
     for page in range(1,int(pages)+1):
-    # url = 'https://search.books.com.tw/search/query/cat/1/sort/1/v/0/page/4/spell/3/ms2/ms2_1/key/python'
-        url = 'https://search.books.com.tw/search/query/cat/1/sort/1/v/0/spell/3/ms2/ms2_1/page/{}/key/{}}'.format(str(page), keyword)
+        url = 'https://search.books.com.tw/search/query/cat/1/sort/1/v/0/spell/3/ms2/ms2_1/page/{}/key/{}'.format(str(page),keyword)
 
         # def get_titles(url):
         res = requests.get(url, headers=headers)
@@ -60,8 +60,12 @@ def book(keyword,pages):
                     author.append(i.text)
             
             authors.append(author)
-            time.sleep(50)
+            intro = soup2.select('div[style="height:auto;"]')
+            for f in intro:
+                print (f.text)
+                introduces.append(f.text)
             print("==============")
+    time.sleep(50)
 
 
     print("OK")
@@ -71,6 +75,7 @@ def book(keyword,pages):
     print(len(publishs))
     print(len(isbns))
     print(len(images))
+    
 
     data ={
         "書名":titlelist,
@@ -80,8 +85,15 @@ def book(keyword,pages):
         "ISBN":isbns,
         "圖片網址":images
         }
+
+    data2 ={
+        "ISBN":isbns,
+        "作者簡介":introduces
+        }
     df = pd.DataFrame(data=data)
     df.to_csv("BOOK_{}.csv".format(keyword),encoding="utf-8-sig",index=False)
+    df = pd.DataFrame(data=data2)
+    df.to_csv("BOOK_{}_introduce.csv".format(keyword),encoding="utf-8-sig",index=False)
     print("Completed")
 book(input("您要搜尋的書籍?"),input("您要總查詢的頁數?"))
 book(input("Press Enter to exit!"))

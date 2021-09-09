@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import time
 import pandas as pd
 from fake_useragent import UserAgent
+import re
 ua = UserAgent()
 titlelist = []  #書名
 htmls = []      #書本網址
@@ -40,8 +41,10 @@ for i in (publish.select('li')[0].select('a')):
         author.append(i.text)
 
 authors.append(author)
-intro = soup2.select('div[style="text-align: center;"]')
-print(intro)
+# intro = soup2.select('div>div>div>div>div')
+intro = soup2.select('div[style="height:auto;"]')
+for f in intro:
+    print (f.text)
 
 time.sleep(10)
 
