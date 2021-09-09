@@ -81,7 +81,7 @@ def book(keyword,pages):
         "圖片網址":images
         }
     df = pd.DataFrame(data=data)
-    df.to_csv("BOOK.csv",encoding="utf-8-sig",index=False)
+    df.to_csv("BOOK_{}.csv".format(keyword),encoding="utf-8-sig",index=False)
     print("Completed")
 book(input("您要搜尋的書籍?"),input("您要總查詢的頁數?"))
 book(input("Press Enter to exit!"))
