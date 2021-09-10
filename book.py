@@ -10,7 +10,7 @@ images = []     #書本圖片
 isbns = []      #ISBN
 authors = []    #作家
 publishs = []   #出版社
-introduces = []  #作者簡介
+introduces = []  #簡介
 user_Agent = ua.random
 # print(user_Agent)
 headers = {
@@ -62,10 +62,12 @@ def book(keyword,pages):
             authors.append(author)
             intro = soup2.select('div[style="height:auto;"]')
             for f in intro:
-                print (f.text)
+                # print (f.text)
                 introduces.append(f.text)
             print("==============")
-    time.sleep(50)
+            time.sleep(50)
+        print("第{}頁".format(page).center(20,"="))
+    
 
 
     print("OK")
@@ -88,7 +90,7 @@ def book(keyword,pages):
 
     data2 ={
         "ISBN":isbns,
-        "作者簡介":introduces
+        "簡介":introduces
         }
     df = pd.DataFrame(data=data)
     df.to_csv("BOOK_{}.csv".format(keyword),encoding="utf-8-sig",index=False)

@@ -11,12 +11,13 @@ images = []     #書本圖片
 isbns = []      #ISBN
 authors = []    #作家
 publishs = []   #出版社
+introduces = []  #作者簡介
 user_Agent = ua.random
 # print(user_Agent)
 headers = {
     'User-Agent': user_Agent
 }
-html = 'https://www.books.com.tw/products/0010887813'
+html = 'https://www.books.com.tw/products/0010758148'
  
 response = requests.get(html,headers = headers)
 soup2 = BeautifulSoup(response.text,"lxml")
@@ -44,8 +45,17 @@ authors.append(author)
 # intro = soup2.select('div>div>div>div>div')
 intro = soup2.select('div[style="height:auto;"]')
 for f in intro:
-    print (f.text)
+    pass
+# print (f.text)
+# print(type(f.text))
+introduces.append(f.text)
 
 time.sleep(10)
-
+data2 ={
+    "ISBN":isbns,
+    "作者簡介":introduces
+    }
+df = pd.DataFrame(data=data2)
+df.to_csv("BOOK_introduce.csv",encoding="utf-8-sig",index=False)
+print("Completed")
 print("==============")
