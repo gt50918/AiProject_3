@@ -39,14 +39,16 @@ for page in range(1,int(pages)+1):
         # isbns.append(isbn)
         time.sleep(1)
         publish = soup2.select('div[class="type02_p003 clearfix"] ul')[0]  #出版社
+        for i in publish.select('span'):
+            if i.text != ("") and i.text != ('\xa0'):
+                publisher = i.text
         author = []
-        publisher = publish.select('span')[0]
         for i in (publish.select('li')[0].select('a')):
             if i.text =='修改' or i.text =='確定' or i.text=='取消' or i.text == '新功能介紹' or i.text == '\xa0':
                 pass
             else:
                 author.append(i.text)
-        book.extend([title,html,author,publisher.text,isbn,image])
+        book.extend([title,html,author,publisher,isbn,image])
         # print(book)
         # authors.append(author)
         intros = []
