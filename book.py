@@ -65,7 +65,8 @@ def book(keyword,pages):
                 # print (f.text)
                 introduces.append(f.text)
             print("==============")
-            time.sleep(50)
+            time.sleep(10)
+        time.sleep(30)
         print("第{}頁".format(page).center(20,"="))
     
 

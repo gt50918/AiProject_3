@@ -26,7 +26,7 @@ df = pd.DataFrame(columns=data)
 df.to_csv("BOOK.csv",encoding="utf-8-sig",index=False)
 
 request_times=0
-for page in range(1, 5):
+for page in range(1, 1):
     # url = 'https://search.books.com.tw/search/query/cat/1/sort/1/v/0/page/4/spell/3/ms2/ms2_1/key/python'
     url = 'https://search.books.com.tw/search/query/cat/1/sort/1/v/0/spell/3/ms2/ms2_1/page/%s/key/python'%(page)
     user_Agent = ua.random
