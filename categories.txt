@@ -1,0 +1,142 @@
+{
+    "資料庫":[
+        "NoSQL",
+        "MySQL",
+        "Oracle",
+        "MongoDB",
+        "Elasticsearch",
+        "PostgreSQL"],
+    "程式語言":[
+        "Python",
+        "C",
+        "C++",
+        "Java",
+        "JavaScript",
+        "PHP",
+        "R語言"],
+    "資料科學":[
+        "Text-mining",
+        "文字探勘",
+        "Data-visualization",
+        "資料視覺化",
+        "ETL網路爬蟲",
+        "Data-mining",
+        "資料探勘"],
+    "網頁設計":[
+        "HTML",
+        "CSS",
+        "Bootstrap",
+        "Ajax",
+        "jQuery"],
+    "人工智慧":[
+        "DeepLearning",
+        "深度學習",
+        "Machine Learning",
+        "機器學習",
+        "TensorFlow",
+        "影像辨識",
+        "Image-recognition",
+        "語音辨識",
+        "Speech-recognition",
+        "Computer Vision",
+        "電腦視覺",
+        "Reinforcement",
+        "強化學習"],
+    "前端開發":[
+        "Web API Design",
+        "WebAssembly",
+        "Ext JS",
+        "TypeScript",
+        "React"],
+    "網站開發":[
+        "Golang",
+        "Laravel",
+        "Ruby",
+        "Django",
+        "Node.js",
+        "Flask"],
+    "系統開發":[
+        "Linux",
+        "Qt Command line",
+        "Vim",
+        "BSD"],
+    "行動軟體開發":[
+        "Apple Developer",
+        "Android",
+        "Cross-Platform"],
+    "資訊安全":[
+        "Hack",
+        "Penetration-test",
+        "Wireshark"],
+    "區塊鏈與金融科技":[
+        "Fintech",
+        "Blockchain"],
+    "雲端運算":[
+        "Amazon Web Services",
+        "DevOps",
+        "Kubernetes",
+        "Microsoft Azure",
+        "Docker",
+        "虛擬化技術",
+        "Virtualization",
+        "OpenStack",
+        "Google Cloud"],
+    "遊戲開發設計":[
+        "Game-engine",
+        "3D-modeling",
+        "Game-design",
+        "VR AR",
+        "OpenGL",
+        "WebGL"],
+    "資訊科學":[
+        "Computer-Science",
+        "計算機概論",
+        "Operating-system",
+        "作業系統原理",
+        "資料結構與演算法",
+        "Information-management",
+        "資訊管理",
+        "Computer-architecture",
+        "計算機組織",
+        "Compiler",
+        "編譯器"],
+    "網路通訊":[
+        "Computer-networks",
+        "TCP IP",
+        "HTTP",
+        "無線網路",
+        "Wireless-networks",
+        "Mobile-communication",
+        "Communication-systems",
+        "Wi-Fi",
+        "LTE"], 
+    "製圖軟體應用":[
+        "AutoCAD",
+        "Artlantis",
+        "Catia",
+        "CNS",
+        "Fusion 360",
+        "Mastercam"],
+    "視覺影音設計":[
+        "Photograph",
+        "Digital-image",
+        "Powerdirector",
+        "Videostudio",
+        "Illustrator"],
+    "軟體架構":[
+        "Design Pattern",
+        "Object-oriented",
+        "物件導向",
+        "Refactoring",
+        "Domain-DrivenDesign"],
+    "Office系列":[
+        "Access",
+        "Excel",
+        "Word",
+        "PowerPoint"]
+}
+
+
+
+
+
