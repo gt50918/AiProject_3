@@ -16,19 +16,25 @@ def book(keyword,pages):
         url = 'https://search.books.com.tw/search/query/cat/1/sort/1/v/0/spell/3/ms2/ms2_1/page/{}/key/{}'.format(str(page),keyword)
         res = requests.get(url, headers=headers)
         soup = BeautifulSoup(res.text, 'html.parser')
-        time.sleep(8)
+        time.sleep(5)
         title_htmls_numbers = soup.select('table[id="itemlist_table"] tbody')
         for html in title_htmls_numbers:
             book = list()
             book_intro = list()
             html = "https://www.books.com.tw/products/"+(html['id'].split('_')[1]) #書網址
             response = requests.get(html,headers = headers)
-            soup2 = BeautifulSoup(response.text,"html.parser")
+            if response.status_code == 200:
+                soup2 = BeautifulSoup(response.text,"html.parser")
+            else:
+                print('(暫停一分鐘)')
+                time.sleep(60)
+                response = requests.get(html,headers = headers)
+                soup2 = BeautifulSoup(response.text,"html.parser")
             title = soup2.select('div[class="mod type02_p002 clearfix"]')[0].text.replace('\n','') #書名
             image = soup2.select('div[class="cnt_mod002 cover_img"] img')[0].get('src')#圖片網址
             # print("t",title)
             # print("i",image)
-            time.sleep(12)
+            time.sleep(5)
             try:
                 isbntest = soup2.select('div[class="bd"] li')[0].text  #ISBN: XXXXXX...
                 isbn = isbntest.split(('：'))[1]
@@ -36,7 +42,7 @@ def book(keyword,pages):
                 isbntest = 0
                 isbn = isbntest
             # isbns.append(isbn)
-            time.sleep(5)
+            time.sleep(2)
             publish = soup2.select('div[class="type02_p003 clearfix"] ul')[0]  #出版社
             for i in publish.select('span'):
                 if i.text != ("") and i.text != ('\xa0'):
@@ -74,7 +80,7 @@ def book(keyword,pages):
             # print(book_intro_np)
             print("Loading...")
             print("==============")
-            time.sleep(20)
+            time.sleep(5)
         time.sleep(20)
         print("第{}頁".format(page).center(20,"="))
 
