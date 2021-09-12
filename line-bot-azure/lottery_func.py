@@ -7,6 +7,7 @@ from msrest.authentication import CognitiveServicesCredentials
 import os
 from PIL import Image
 from PIL import ImageFile
+
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
@@ -40,7 +41,7 @@ def scanlottery(subscription_key,endpoint,img):
         get_printed_text_results = computervision_client.get_read_operation_result(operation_id)
         if get_printed_text_results.status not in ['NotStarted', 'Running']:
             break
-    str1 +='------------黑白之後--------------'
+    str1 +='@@split@@'
     if get_printed_text_results.status == TextOperationStatusCodes.succeeded:
         for text_result in get_printed_text_results.recognition_results:
             for line in text_result.lines:
@@ -53,7 +54,11 @@ def scanlottery(subscription_key,endpoint,img):
 def re_tolist(str1):
     '''用azure掃瞄照片，辨識文字 'str' '''
 
-    numbers=" ".join(re.findall("(\d\d \d\d \d\d \d\d \d\d \d\d)[\w.]",str1)).split(' ')
+    numbers=re.findall("(\d\d \d\d \d\d \d\d \d\d \d\d)",str1.split('@@split@@')[0])
+    if len(numbers)==0:
+        numbers=re.findall("(\d\d \d\d \d\d \d\d \d\d \d\d)",str1.split('@@split@@')[1])
+    if numbers=='':
+        return 'No number!'
     numberslist=' '.join(numbers).split(' ')
     set_n=len(numberslist)//6
     mylist=[]
@@ -133,26 +138,35 @@ def getmoney(soup,x):
     elif natural ==3:
         award['普獎']=soup.select('span[id="Lotto649Control_history_dlQuery_Label13_0"]')[0].text +'元'
     else:
-        award['沒得獎']='哭哭'
+        award['沒得獎']='哭哭ＱＱ'
     return award
 
 def main(scan,subscription_key,endpoint):
-    # scan= scand
-    str1=scanlottery(subscription_key,endpoint,img=scan)
-    lotteryNo=re.findall('#\d{9}',str1)[0][1:]   #大樂透第N期
-    mylist = re_tolist(str1)    # Regular Expression取玩家大樂透號碼
-    soup= getsoup(lotteryNo)       # 取大樂透網站的soup
-    win_number=winning_numbers(soup)  # 大樂透中獎號碼
-    result=''
-    # 玩家大樂透逐筆比對
-    for mylottery in mylist:    
-        x=match(mylottery,win_number)
-        award=getmoney(soup,x)
-        mylottery_str = ' '.join(mylottery)
-        result += '號碼為:'+mylottery_str +'\n'
 
-        award_keys = list(award.keys())[0]
-        award_values = list(award.values())[0]
-        result += '結果為:'+award_keys+'~'+award_values + '\n'
-    
+    str1=scanlottery(subscription_key,endpoint,img=scan)
+    try:
+        lotteryNo=re.findall('#\d{9}',str1)[0][1:]   #大樂透第N期
+    except:    
+        return '大樂透無法辨識，試試看再拍近一點～'        
+
+    mylist = re_tolist(str1)    # Regular Expression取玩家大樂透號碼
+    if mylist=='No number!':
+        return '大樂透無法辨識，試試看再拍進一點～'
+
+    soup= getsoup(lotteryNo)       # 取大樂透網站的soup
+    try:
+        win_number=winning_numbers(soup)  # 大樂透中獎號碼
+        result=''
+        # 玩家大樂透逐筆比對
+        for mylottery in mylist:    
+            x=match(mylottery,win_number)
+            award=getmoney(soup,x)
+            mylottery_str = ' '.join(mylottery)
+            result += '號碼為：'+mylottery_str +'\n'
+
+            award_keys = list(award.keys())[0]
+            award_values = list(award.values())[0]
+            result += '結果為：'+award_keys+'~'+award_values + '\n'
+    except:
+        return '大樂透還沒開獎喔～讓我們一起集氣！'
     return result[:-1]
