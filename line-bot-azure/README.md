@@ -21,5 +21,5 @@ curl $(docker port chatbot_ngrok 4040)/api/tunnels
 
 
 ## 影片網址
-[line-bot大樂透兌換成果](https://www.youtube.com/watch?v=mA5YPS0AZfY)
+[line-bot大樂透兌獎成果](https://www.youtube.com/watch?v=mA5YPS0AZfY)
 
